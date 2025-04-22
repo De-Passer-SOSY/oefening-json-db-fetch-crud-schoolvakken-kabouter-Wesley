@@ -53,6 +53,7 @@ async function deleteTask(id) {
 
 async function updateTask() {
     const content = await fetchDb();
+    const list = document.querySelector("#vakList");
     content.forEach(vak => {
         let li = document.createElement("li");
         li.textContent = vak.name;
@@ -62,6 +63,6 @@ async function updateTask() {
         deleteBtn.addEventListener("click", () => deleteTask(vak.id));
 
         li.appendChild(deleteBtn);
-        lijst.appendChild(li);
+        list.appendChild(li);
     });
 }
