@@ -36,3 +36,16 @@ async function createTask() {
         console.error(`Er is een fout opgetreden: ${err}`);
     }
 }
+
+async function deleteTask(id) {
+    try {
+        let response = await fetch(`http://localhost:5688/vakken/${id}`, {
+            method: "DELETE"
+        });
+        if (response.ok) {
+            fetchDb();
+        }
+    } catch (err) {
+        console.error("Fout bij verwijderen:", err);
+    }
+}
