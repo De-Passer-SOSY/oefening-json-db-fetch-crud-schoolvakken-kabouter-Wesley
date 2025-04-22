@@ -5,13 +5,15 @@ document.addEventListener("DOMContentLoaded", init);
 function init() {
     const createTaskInput = document.querySelector("#addButton");
     createTaskInput.addEventListener("click", createTask);
+
+    fetchDb()
 }
 
 async function fetchDb() {
     try {
         const response = await fetch("http://localhost:5688/vakken");
-        await updateTask();
-        return await response.json();
+        const content = await response.json();
+        updateTask(content);
     } catch (err) {
         console.error(`Er is een fout opgetreden: ${err}`);
     }
@@ -51,9 +53,9 @@ async function deleteTask(id) {
     }
 }
 
-async function updateTask() {
-    const content = await fetchDb();
+async function updateTask(content) {
     const list = document.querySelector("#vakList");
+    list.textContent = ''
     content.forEach(vak => {
         let li = document.createElement("li");
         li.textContent = vak.name;
