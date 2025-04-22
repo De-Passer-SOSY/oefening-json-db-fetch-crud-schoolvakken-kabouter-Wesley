@@ -10,6 +10,7 @@ function init() {
 async function fetchDb() {
     try {
         const response = await fetch("http://localhost:5688/vakken");
+        await updateTask();
         return await response.json();
     } catch (err) {
         console.error(`Er is een fout opgetreden: ${err}`);
@@ -48,4 +49,19 @@ async function deleteTask(id) {
     } catch (err) {
         console.error("Fout bij verwijderen:", err);
     }
+}
+
+async function updateTask() {
+    const content = await fetchDb();
+    content.forEach(vak => {
+        let li = document.createElement("li");
+        li.textContent = vak.name;
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "❌";
+        deleteBtn.addEventListener("click", () => deleteTask(vak.id));
+
+        li.appendChild(deleteBtn);
+        lijst.appendChild(li);
+    });
 }
