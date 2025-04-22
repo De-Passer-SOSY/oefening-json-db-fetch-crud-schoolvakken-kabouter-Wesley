@@ -3,5 +3,15 @@
 document.addEventListener("DOMContentLoaded", init);
 
 function init() {
+    const createTaskInput = document.querySelector("#addButton");
+    createTaskInput.addEventListener("click", createTask);
+}
 
+async function fetchDb() {
+    try {
+        const response = await fetch("http://localhost:5688/vakken");
+        return await response.json();
+    } catch (err) {
+        console.error(`Er is een fout opgetreden ${err}`);
+    }
 }
